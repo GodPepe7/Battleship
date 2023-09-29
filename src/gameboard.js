@@ -1,4 +1,4 @@
-const gameboard = () => {
+const Gameboard = () => {
   const board = [];
   const attackedFields = [];
   const ships = [];
@@ -35,4 +35,4 @@ const gameboard = () => {
   };
 };
 
-export default gameboard;
+export default Gameboard;

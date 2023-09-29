@@ -1,9 +1,9 @@
-import ship from "./ship";
+import Ship from "./Ship";
 
 describe("ship tests", () => {
   let newShip;
   beforeEach(() => {
-    newShip = ship(3);
+    newShip = Ship(3);
   });
 
   test("ship length", () => {

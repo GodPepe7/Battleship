@@ -1,17 +1,17 @@
-import gameboard from "./gameboard";
-import ship from "./ship";
+import Gameboard from "./Gameboard";
+import Ship from "./Ship";
 
 const mockHit = jest.fn();
-jest.mock("./ship", () => {
+jest.mock("./Ship", () => {
   return jest.fn().mockImplementation(() => {
-    return { hit: mockHit };
+    return { hit: mockHit, isSunk: () => true };
   });
 });
 
 describe("gameboard tests", () => {
   let gb;
   beforeEach(() => {
-    gb = gameboard();
+    gb = Gameboard();
   });
 
   test("place ship in gameboard", () => {
@@ -22,9 +22,23 @@ describe("gameboard tests", () => {
   });
 
   test("receiveAttack calls hit on ship", () => {
-    const fakeShip = ship(3);
+    const fakeShip = Ship(3);
     gb.placeShip(fakeShip, 0, 0);
     gb.receiveAttack(0, 0);
     expect(mockHit.mock.calls.length).toEqual(1);
+  });
+
+  test("all ships are sunk", () => {
+    const fakeShip = Ship(1);
+    gb.placeShip(fakeShip, 0, 0);
+    gb.receiveAttack(0, 0);
+    expect(gb.allShipsSunk()).toBe(true);
+  });
+
+  test("all ships are sunk", () => {
+    const fakeShip = Ship(1);
+    gb.placeShip(fakeShip, 0, 0);
+    gb.receiveAttack(0, 0);
+    expect(gb.allShipsSunk()).toBe(true);
   });
 });
