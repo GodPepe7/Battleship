@@ -1,6 +1,6 @@
 const Gameboard = () => {
   const board = [];
-  const attackedFields = [];
+  const attackedFields = new Map();
   const ships = [];
   for (let i = 0; i < 10; i++) {
     const row = new Array(10);
@@ -14,10 +14,11 @@ const Gameboard = () => {
   };
   const receiveAttack = (x, y) => {
     const attacked = board[y][x];
-    if (!attacked) board[y][x] = attackedFields.push({ hit: false, x, y });
+    const mapCoords = x * 10 + y;
+    if (!attacked) board[y][x] = attackedFields.set(mapCoords, false);
     else {
       attacked.hit();
-      attackedFields.push({ hit: true, x, y });
+      attackedFields.set(mapCoords, true);
     }
   };
   const allShipsSunk = () => {
