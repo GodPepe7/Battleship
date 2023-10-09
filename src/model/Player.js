@@ -1,5 +1,5 @@
 import Ship from "./Ship";
-import Gameboard from "./gameboard";
+import Gameboard from "./Gameboard";
 
 const Player = () => {
   const ships = [];
