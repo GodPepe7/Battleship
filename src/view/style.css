@@ -48,3 +48,12 @@ body {
 .cell {
     border: 1px solid white;
 }
+
+.cell:hover {
+    background-color: rgba(255, 255, 255, 0.576);
+    cursor: pointer;
+}
+
+.player-gameboard > .cell:hover {
+    cursor: default;
+}
