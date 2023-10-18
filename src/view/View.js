@@ -24,7 +24,8 @@ const View = (() => {
     });
   });
 
-  const updateGameBoard = (attackedFields) => {
+  const updateGameBoard = () => {
+    const attackedFields = GameLoop.getBothAttackedFields();
     attackedFields.forEach((currentAttackedField, index) => {
       const currentGameBoardDiv = gameBoardDivs[index];
       currentAttackedField.forEach((isHit, coordinates) => {
@@ -44,11 +45,8 @@ const View = (() => {
     const cell = e.target;
     const coordinateY = Math.floor(cell.dataset.index / 10);
     const coordinateX = cell.dataset.index - coordinateY * 10;
-    const attackedFields = GameLoop.attackAndReturnAttackedFields(
-      coordinateX,
-      coordinateY
-    );
-    updateGameBoard(attackedFields);
+    GameLoop.playTurn(coordinateX, coordinateY);
+    updateGameBoard();
   };
   gameBoardDivs[1].addEventListener("click", attackEnemy);
 })();

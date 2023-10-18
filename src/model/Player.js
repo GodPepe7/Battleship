@@ -27,7 +27,13 @@ const Player = () => {
     enemyGameBoard.receiveAttack(attackX, attackY);
   };
 
-  return { gameBoard, ships, attackEnemy, computerAttackEnemy };
+  const isValidAttack = (x, y, enemyGameBoard) => {
+    const attackedFields = enemyGameBoard.getAttackedFields();
+    const coords = y * 10 + x;
+    return !attackedFields.has(coords);
+  };
+
+  return { gameBoard, ships, attackEnemy, computerAttackEnemy, isValidAttack };
 };
 
 export default Player;

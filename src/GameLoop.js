@@ -42,15 +42,19 @@ const GameLoop = (() => {
     return shipPlacements;
   };
 
-  const attackAndReturnAttackedFields = (x, y) => {
+  const playTurn = (x, y) => {
+    if (!player.isValidAttack(x, y, computer.gameBoard)) return;
     player.attackEnemy(x, y, computer.gameBoard);
     computer.computerAttackEnemy(player.gameBoard);
+  };
+
+  const getBothAttackedFields = () => {
     const playerAttackedFields = player.gameBoard.getAttackedFields();
     const computerAttackedFields = computer.gameBoard.getAttackedFields();
     return [playerAttackedFields, computerAttackedFields];
   };
 
-  return { getPlayerShipPlacements, attackAndReturnAttackedFields };
+  return { getPlayerShipPlacements, playTurn, getBothAttackedFields };
 })();
 
 export default GameLoop;
