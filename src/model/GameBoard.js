@@ -1,4 +1,4 @@
-const Gameboard = () => {
+const GameBoard = () => {
   const board = [];
   const attackedFields = new Map();
   const ships = [];
@@ -6,27 +6,34 @@ const Gameboard = () => {
     const row = new Array(10);
     board.push(row);
   }
+
   const getBoard = () => board;
   const getAttackedFields = () => attackedFields;
-  const placeShip = (ship, x, y) => {
+  const placeShip = (ship, coordinates) => {
     ships.push(ship);
-    board[y][x] = ship;
+    coordinates.forEach(([x, y]) => {
+      board[y][x] = ship;
+    });
   };
+
   const receiveAttack = (x, y) => {
     const attacked = board[y][x];
-    const mapCoords = x * 10 + y;
-    if (!attacked) board[y][x] = attackedFields.set(mapCoords, false);
-    else {
+    const mapCoords = y * 10 + x;
+    if (!attacked) {
+      attackedFields.set(mapCoords, false);
+    } else {
       attacked.hit();
       attackedFields.set(mapCoords, true);
     }
   };
+
   const allShipsSunk = () => {
     ships.forEach((ship) => {
       if (!ship.isSunk()) return false;
     });
     return true;
   };
+
   return {
     getBoard,
     getAttackedFields,
@@ -36,4 +43,4 @@ const Gameboard = () => {
   };
 };
 
-export default Gameboard;
+export default GameBoard;
