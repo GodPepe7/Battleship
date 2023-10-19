@@ -20,6 +20,7 @@ describe("ship tests", () => {
     expect(newShip.isSunk()).toBe(false);
     newShip.hit();
     newShip.hit();
+    expect(newShip.isSunk()).toBe(false);
     newShip.hit();
     expect(newShip.isSunk()).toBe(true);
   });
