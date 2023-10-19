@@ -54,7 +54,18 @@ const GameLoop = (() => {
     return [playerAttackedFields, computerAttackedFields];
   };
 
-  return { getPlayerShipPlacements, playTurn, getBothAttackedFields };
+  const checkForWinner = () => {
+    if (player.gameBoard.allShipsSunk()) return "Computer";
+    else if (computer.gameBoard.allShipsSunk()) return "Player";
+    return;
+  };
+
+  return {
+    getPlayerShipPlacements,
+    playTurn,
+    getBothAttackedFields,
+    checkForWinner,
+  };
 })();
 
 export default GameLoop;

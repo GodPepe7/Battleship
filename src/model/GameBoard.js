@@ -28,10 +28,7 @@ const GameBoard = () => {
   };
 
   const allShipsSunk = () => {
-    ships.forEach((ship) => {
-      if (!ship.isSunk()) return false;
-    });
-    return true;
+    return ships.every((ship) => ship.isSunk());
   };
 
   return {

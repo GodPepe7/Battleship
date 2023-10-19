@@ -29,11 +29,9 @@ const View = (() => {
     attackedFields.forEach((currentAttackedField, index) => {
       const currentGameBoardDiv = gameBoardDivs[index];
       currentAttackedField.forEach((isHit, coordinates) => {
-        console.log(coordinates);
         const cell = currentGameBoardDiv.querySelector(
           `[data-index="${coordinates}"]`
         );
-        console.log(isHit);
         if (isHit) cell.style.backgroundColor = "green";
         else cell.style.backgroundColor = "red";
       });
@@ -49,4 +47,16 @@ const View = (() => {
     updateGameBoard();
   };
   gameBoardDivs[1].addEventListener("click", attackEnemy);
+
+  const checkForGameOver = () => {
+    const winner = GameLoop.checkForWinner();
+    if (winner) {
+      gameBoardDivs.forEach((gameBoardDiv) => {
+        gameBoardDiv.removeEventListener("click", attackEnemy);
+        gameBoardDiv.removeEventListener("click", checkForGameOver);
+      });
+      alert(`Game Over! Winner is ${winner}`);
+    }
+  };
+  gameBoardDivs[1].addEventListener("click", checkForGameOver);
 })();
