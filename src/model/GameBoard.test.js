@@ -38,11 +38,4 @@ describe("gameboard tests", () => {
     gb.receiveAttack(0, 0);
     expect(gb.allShipsSunk()).toBe(true);
   });
-
-  test("all ships are sunk", () => {
-    const fakeShip = Ship(1);
-    gb.placeShip(fakeShip, [[0, 0]]);
-    gb.receiveAttack(0, 0);
-    expect(gb.allShipsSunk()).toBe(true);
-  });
 });
