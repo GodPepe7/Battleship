@@ -3,43 +3,22 @@ import Player from "./model/Player";
 const GameLoop = (() => {
   const player = Player();
   const computer = Player();
-  const shipPlacements = [
-    [
-      [1, 0],
-      [2, 0],
-      [3, 0],
-      [4, 0],
-      [5, 0],
-    ],
-    [
-      [1, 1],
-      [2, 1],
-      [3, 1],
-      [4, 1],
-    ],
-    [
-      [0, 0],
-      [0, 1],
-      [0, 2],
-    ],
-    [
-      [0, 5],
-      [0, 6],
-      [0, 7],
-    ],
-    [
-      [6, 6],
-      [6, 7],
-    ],
-  ];
 
-  shipPlacements.forEach((shipCoords, index) => {
-    computer.gameBoard.placeShip(computer.ships[index], shipCoords);
-    player.gameBoard.placeShip(player.ships[index], shipCoords);
-  });
+  const checkIfValidPlacement = (shipLength, coords, axis) => {
+    return player.gameBoard.checkIfValidPlacement(shipLength, coords, axis);
+  };
+
+  const placeShip = (shipIndex, [x, y], axis) => {
+    player.gameBoard.placeShip(player.ships[shipIndex], [x, y], axis);
+    computer.gameBoard.placeShipAtRandomCoordinate(computer.ships[shipIndex]);
+  };
+
+  const getShips = () => {
+    return player.ships.map((ship) => ship.length);
+  };
 
   const getPlayerShipPlacements = () => {
-    return shipPlacements;
+    return player.gameBoard.getBoard();
   };
 
   const playTurn = (x, y) => {
@@ -61,10 +40,13 @@ const GameLoop = (() => {
   };
 
   return {
+    getShips,
     getPlayerShipPlacements,
+    placeShip,
     playTurn,
     getBothAttackedFields,
     checkForWinner,
+    checkIfValidPlacement,
   };
 })();
 
